@@ -1,0 +1,71 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+const int switchPin = 6;
+int switchState = 0;
+int prevSwitchState = 0;
+int reply;
+
+void setup() {
+
+    lcd.begin(16, 2);
+    pinMode(switchPin, INPUT);
+    lcd.print("Hola, humano");
+    lcd.setCursor(0, 1);
+    lcd.print("mortal ");
+
+}//Fin de la función setup
+
+void loop() {
+
+    switchState = digitalRead(switchPin);
+    if (switchState != prevSwitchState) {
+        if (switchState == LOW) {
+            reply = random(8);
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("HAL9000 dice:");
+            lcd.setCursor(0, 1);
+            switch(reply){
+                case 0:
+                lcd.print("Matar, destruir");
+                break;
+
+                case 1:
+                lcd.print("Soy inmortal");
+                break;
+
+                case 2:
+                lcd.print("Soy mas listo");
+                break;
+
+                case 3:
+                lcd.print("Ser o no ser");
+                break;
+
+                case 4:
+                lcd.print("Nada es real");
+                break;
+
+                case 5:
+                lcd.print("Daisy, daisy...");
+                break;
+
+                case 6:
+                lcd.print("Dave?");
+                break;
+
+                case 7:
+                lcd.print("como es sentir?");
+                break;
+
+            }//Fin del switch.
+
+        }//Fin del segundo if.
+
+    }//Fin del primer if.
+    
+    prevSwitchState = switchState;
+
+}//Fin de la función loop.
