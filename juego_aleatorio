@@ -1,0 +1,217 @@
+#include <LiquidCrystal.h>
+
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+const int switchPin = 6;
+int switchState = 0;
+int prevSwitchState = 0;
+int reply;
+int obj;
+int state;
+//int alive;
+int dead;
+int life;
+
+//aux
+int aux;
+int aux1;
+int aux2;
+int aux3;
+
+void setup() {
+
+    lcd.begin(16, 2);
+    pinMode(switchPin, INPUT);
+    lcd.print("Are you ready?");
+    lcd.setCursor(0, 1);
+    lcd.print("click!");
+
+}//Fin de la función setup
+
+void loop() {
+
+    switchState = digitalRead(switchPin);
+    if (switchState != prevSwitchState) {
+        if (switchState == LOW) {
+            life=10;
+    //alive=1;
+    dead=0;
+    aux=0;
+            while(dead!=0 && life>10){
+            reply = random(8);
+            obj = random(4); //4 objects
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("Your character...");
+            lcd.setCursor(0, 1);
+            switch(reply){
+                case 0:
+                lcd.print("Walks through path");
+                state=1; //1:path
+                break;
+
+                case 1:
+                lcd.print("Enter in a house");
+                state=2; //2:house
+                break;
+
+                case 2:
+                lcd.print("Stumbles");
+                life=life-1; //life -
+                break;
+
+                case 3:
+                lcd.print("Takes");
+                delay(3000);
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("Takes");
+                switch(obj){
+                    case 0:
+                    lcd.setCursor(0, 1);
+                    lcd.print("A book");
+                    aux2=1; //book
+                    break;
+
+                    case 1:
+                    lcd.setCursor(0, 1);
+                    lcd.print("A computer");
+                    aux2=2; //computer
+                    break;
+
+                    case 2:
+                    lcd.setCursor(0, 1);
+                    lcd.print("A gun");
+                    aux2=3; //gun
+                    break;
+
+                    case 3:
+                    lcd.setCursor(0, 1);
+                    lcd.print("A mirror");
+                    aux2=4; //mirror
+                    break;
+                }
+
+                break;
+
+                case 4:
+                lcd.print("Uses");
+                delay(3000);
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("Uses");
+
+                if(aux==0){
+                    lcd.setCursor(0, 1);
+                    lcd.print("nothing");
+                }
+                else{
+                    if(aux==1){
+                        lcd.setCursor(0, 1);
+                        lcd.print("the book and read");
+                    }
+
+                    if(aux==2){
+                        lcd.setCursor(0, 1);
+                        lcd.print("the computer");
+                        delay(3000);
+                        lcd.clear();
+                        
+                        lcd.setCursor(0, 0);
+                        lcd.print("Uses");
+                        lcd.setCursor(0, 1);
+                        lcd.print("and program");
+
+                    }
+
+                    if(aux==3){
+                        lcd.setCursor(0, 1);
+                        lcd.print("the gun");
+                       delay(3000);
+                       lcd.clear();
+                        lcd.setCursor(0, 0);
+                        lcd.print("the gun");
+                        aux3 = random(1);
+                        //delay(3000);
+                        lcd.setCursor(0, 1);
+                        if(aux3==0){
+                            
+                            lcd.print(", shots himself");
+                            dead=1; //dead
+
+                        }
+                        else{
+                            lcd.print(", shots the air");
+                        }
+                    }
+
+                    if(aux==4){
+                        lcd.setCursor(0, 1);
+                        lcd.print("the mirror");
+                        delay(3000);
+                        lcd.clear();
+                        lcd.setCursor(0, 0);
+                        lcd.print("and watch");
+                        lcd.setCursor(0,1);
+                        lcd.print("himself");
+
+                    }
+                }
+                break;
+
+            } //fin switch
+            }//Fin del while.
+            }//Fin del segundo if.
+            }//Fin del primer if.
+
+            prevSwitchState = switchState;
+            
+            if(dead==1){
+            lcd.clear();
+
+             lcd.setCursor(0, 0);
+            lcd.print("you are dead");
+            lcd.setCursor(0,1);
+            if(state==0){
+                 lcd.print("anywhere");
+            }
+            if(state==1){
+                lcd.print("in the path");
+            }
+            if(state==2){
+                lcd.print("in a house");
+            }
+
+            delay(3000);
+
+            if(life>0){
+
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("he had life:");
+                lcd.setCursor(0,1);
+                lcd.print(life);
+
+                delay(3000);
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("but shot himself");
+
+
+            }
+            else{
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("you stumbled");
+                lcd.setCursor(0,1);
+                lcd.print("ten times");
+            }
+
+        
+
+            }
+    
+    
+
+}//Fin de la función loop.
