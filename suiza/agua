@@ -1,0 +1,19 @@
+const int LED= 13;//Digital pin that the LED is connected
+
+void setup(){
+Serial.begin(9600);
+pinMode(LED,OUTPUT);
+}
+
+void loop() {
+int sensorReading= analogRead(A0); //reads the sensor value
+
+Serial.println (sensorReading); //prints out the sensor reading
+
+if (sensorReading < 800){//if reading is above 800, LED blinks on and off
+digitalWrite(LED,HIGH); //turns the LED on
+delay(1000); //waits for a second
+digitalWrite(LED,LOW); //turns the LED off
+delay(1000); //waits for a second
+}
+}
