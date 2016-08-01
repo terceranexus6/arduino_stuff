@@ -33,12 +33,16 @@ void loop() {
 
     switchState = digitalRead(switchPin);
     if (switchState != prevSwitchState) {
-        if (switchState == LOW) {
+      dead=0;
+      aux=0;
+        if (switchState == LOW ) {
+          
+          //if(dead != 0){
+            //if(life>0){
             life=10;
     //alive=1;
-    dead=0;
-    aux=0;
-            while(dead!=0 && life>10){
+    
+            //while(dead!=0 && life>10){
             reply = random(8);
             obj = random(4); //4 objects
             lcd.clear();
@@ -47,7 +51,7 @@ void loop() {
             lcd.setCursor(0, 1);
             switch(reply){
                 case 0:
-                lcd.print("Walks through path");
+                lcd.print("Walks");
                 state=1; //1:path
                 break;
 
@@ -63,7 +67,7 @@ void loop() {
 
                 case 3:
                 lcd.print("Takes");
-                delay(3000);
+                delay(1000);
                 lcd.clear();
                 lcd.setCursor(0, 0);
                 lcd.print("Takes");
@@ -97,38 +101,38 @@ void loop() {
 
                 case 4:
                 lcd.print("Uses");
-                delay(3000);
+                delay(1000);
                 lcd.clear();
                 lcd.setCursor(0, 0);
                 lcd.print("Uses");
 
-                if(aux==0){
+                if(aux2==0){
                     lcd.setCursor(0, 1);
                     lcd.print("nothing");
                 }
                 else{
-                    if(aux==1){
+                    if(aux2==1){
                         lcd.setCursor(0, 1);
                         lcd.print("the book and read");
                     }
 
-                    if(aux==2){
+                    if(aux2==2){
                         lcd.setCursor(0, 1);
                         lcd.print("the computer");
-                        delay(3000);
+                        delay(1000);
                         lcd.clear();
                         
                         lcd.setCursor(0, 0);
-                        lcd.print("Uses");
+                        lcd.print("the computer");
                         lcd.setCursor(0, 1);
                         lcd.print("and program");
 
                     }
 
-                    if(aux==3){
+                    if(aux2==3){
                         lcd.setCursor(0, 1);
                         lcd.print("the gun");
-                       delay(3000);
+                       delay(1000);
                        lcd.clear();
                         lcd.setCursor(0, 0);
                         lcd.print("the gun");
@@ -138,7 +142,13 @@ void loop() {
                         if(aux3==0){
                             
                             lcd.print(", shots himself");
-                            dead=1; //dead
+                            delay(1000);
+                            lcd.clear();
+                            lcd.print("you are dead");
+                            delay(2000);
+                            exit(0);
+                            //dead=1; //dead
+                            
 
                         }
                         else{
@@ -146,10 +156,10 @@ void loop() {
                         }
                     }
 
-                    if(aux==4){
+                    if(aux2==4){
                         lcd.setCursor(0, 1);
                         lcd.print("the mirror");
-                        delay(3000);
+                        delay(1000);
                         lcd.clear();
                         lcd.setCursor(0, 0);
                         lcd.print("and watch");
@@ -161,56 +171,24 @@ void loop() {
                 break;
 
             } //fin switch
-            }//Fin del while.
+            if(life==0){
+              //delay(3000);
+                            lcd.clear();
+                            lcd.print("you are dead");
+                            delay(2000);
+                            exit(0);
+            //dead=1;
+            }
+            //}//Fin del while.
+            
+            //}//fin cuarto if
+            //}//fin tercer if
             }//Fin del segundo if.
             }//Fin del primer if.
 
             prevSwitchState = switchState;
             
-            if(dead==1){
-            lcd.clear();
-
-             lcd.setCursor(0, 0);
-            lcd.print("you are dead");
-            lcd.setCursor(0,1);
-            if(state==0){
-                 lcd.print("anywhere");
-            }
-            if(state==1){
-                lcd.print("in the path");
-            }
-            if(state==2){
-                lcd.print("in a house");
-            }
-
-            delay(3000);
-
-            if(life>0){
-
-                lcd.clear();
-                lcd.setCursor(0, 0);
-                lcd.print("he had life:");
-                lcd.setCursor(0,1);
-                lcd.print(life);
-
-                delay(3000);
-                lcd.clear();
-                lcd.setCursor(0, 0);
-                lcd.print("but shot himself");
-
-
-            }
-            else{
-                lcd.clear();
-                lcd.setCursor(0, 0);
-                lcd.print("you stumbled");
-                lcd.setCursor(0,1);
-                lcd.print("ten times");
-            }
-
-        
-
-            }
+            
     
     
 
