@@ -202,10 +202,9 @@ void loop() {
 
             } //fin switch
             
-            //}//Fin del while.
+           
             
-            //}//fin cuarto if
-            //}//fin tercer if
+            
             points=points+1;
             }//Fin del segundo if.
             }//Fin del primer if.
@@ -217,3 +216,4 @@ void loop() {
     
 
 }//Fin de la función loop.
+
