@@ -9,6 +9,8 @@ int prevSwitchState = 0;
 int reply;
 int obj;
 int state;
+int points;
+
 //int alive;
 int dead;
 int life;
@@ -26,6 +28,8 @@ void setup() {
     lcd.print("Are you ready?");
     lcd.setCursor(0, 1);
     lcd.print("click!");
+    life=5;
+    points=0;
 
 }//Fin de la función setup
 
@@ -33,13 +37,14 @@ void loop() {
 
     switchState = digitalRead(switchPin);
     if (switchState != prevSwitchState) {
-      dead=0;
+      //dead=0;
       aux=0;
+      
         if (switchState == LOW ) {
           
           //if(dead != 0){
             //if(life>0){
-            life=10;
+            
     //alive=1;
     
             //while(dead!=0 && life>10){
@@ -63,6 +68,26 @@ void loop() {
                 case 2:
                 lcd.print("Stumbles");
                 life=life-1; //life -
+                if(life<1){
+              //delay(3000);
+              delay(1000);
+                            lcd.clear();
+                            lcd.print("he is dead");
+                            delay(1000);
+                            lcd.clear();
+                            lcd.print("because he");
+                            delay(1000);
+                            lcd.clear();
+                            lcd.print("fell 5 times");
+                            delay(2000);
+                            lcd.clear();
+                            lcd.print("points: ");
+                            lcd.setCursor(0, 1);
+                            lcd.print(points);
+                            
+                            exit(0);
+            //dead=1;
+            }
                 break;
 
                 case 3:
@@ -141,11 +166,16 @@ void loop() {
                         lcd.setCursor(0, 1);
                         if(aux3==0){
                             
-                            lcd.print(", shots himself");
+                            lcd.print("he shots himself");
                             delay(1000);
                             lcd.clear();
-                            lcd.print("you are dead");
+                            lcd.print("he is dead");
                             delay(2000);
+                            lcd.clear();
+                            lcd.print("points: ");
+                            lcd.setCursor(0, 1);
+                            lcd.print(points);
+                            
                             exit(0);
                             //dead=1; //dead
                             
@@ -171,18 +201,12 @@ void loop() {
                 break;
 
             } //fin switch
-            if(life==0){
-              //delay(3000);
-                            lcd.clear();
-                            lcd.print("you are dead");
-                            delay(2000);
-                            exit(0);
-            //dead=1;
-            }
+            
             //}//Fin del while.
             
             //}//fin cuarto if
             //}//fin tercer if
+            points=points+1;
             }//Fin del segundo if.
             }//Fin del primer if.
 
